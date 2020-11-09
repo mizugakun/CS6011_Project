@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "CS6011_Project"

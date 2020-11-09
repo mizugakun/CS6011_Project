@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:autofillHints="@string/timer_s_name"
+        android:hint="@string/timer_s_name"
+        android:labelFor="@id/label_timer_name"
+        android:id="@+id/form_Timer_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@+id/label_timer_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/label_timer_name"
+        app:layout_constraintTop_toTopOf="@+id/label_timer_name"
+        app:layout_constraintVertical_bias="0.941" />
+
+    <TextView
+        android:id="@+id/label_timer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="144dp"
+        android:text="@string/timer_name"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/form_Timer_Name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Withdraw_Adding_Timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
+        android:text="@string/withdraw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Confirm_Adding_Timer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Confirm_Adding_Timer"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:text="@string/add"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_Withdraw_Adding_Timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_Withdraw_Adding_Timer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

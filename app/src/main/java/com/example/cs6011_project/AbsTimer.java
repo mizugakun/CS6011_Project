@@ -6,6 +6,7 @@ public abstract class AbsTimer {
 	private Date created;
     private int timeremaining;
     protected String advice;
+    protected int days, hours, minutes, seconds;
 
     public AbsTimer() {
         
@@ -17,6 +18,7 @@ public abstract class AbsTimer {
             if (timeremaining != 0) {
                 timeremaining--;
                 System.out.println(timeremaining);
+                updatetime(timeremaining);
             }
         }
     };
@@ -27,11 +29,20 @@ public abstract class AbsTimer {
     public void setTimeRemaining(int totaltime, int offset) {
     	timeremaining = totaltime - offset;
     }
+    public void updatetime(int totalsec) {
+    	int remainder;
+    	days = totalsec / 86400;
+    	remainder = totalsec % 86400;
+    	hours = remainder / 3600;
+    	remainder = remainder % 3600;
+    	minutes = remainder / 60;
+    	remainder = remainder % 60;
+    	seconds = remainder;
+    }
     public void setAdvice(String newAdvice) {
     	advice = newAdvice;
     }
     public void setCreated(Date todayDate) {
     	created = todayDate;
     }
-    
 }

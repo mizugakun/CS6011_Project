@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -22,18 +21,6 @@ import utilities.FileHelper;
 
 public class TimerListFragment extends Fragment {
     TimerListViewModel timerListViewModel;
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        timerListViewModel = new ViewModelProvider(this).get(TimerListViewModel.class);
-//        timerListViewModel.timers.observe(getViewLifecycleOwner(), new Observer<List<TimerData>>() {
-//            @Override
-//            public void onChanged(List<TimerData> timerData) {
-//                FileHelper.TimerLogHelper(timerData);
-//            }
-//        });
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,29 +1,16 @@
 package utilities;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +19,7 @@ import data.TimerData;
 
 public class FileHelper {
 
-    public String getTextFromAssets(Context context, String fileName) {
+    public static String getTextFromAssets(Context context, String fileName) {
         String res = null;
         try {
             InputStream is = context.getAssets().open(fileName);
@@ -51,17 +38,15 @@ public class FileHelper {
         return res;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public List<TimerData> ParseHelper(String jsonString) {
-        if (jsonString == null) {
-            return null;
-        }
+    public static List<TimerData> ParseHelper(String jsonString) {
+        List<TimerData> res = new ArrayList<>();
 
+        if (jsonString == null) {
+            return res;
+        }
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(jsonString);
         JsonArray jsonArray= element.getAsJsonArray();
-
-        List<TimerData> res = new ArrayList<>();
 
         for (JsonElement ele : jsonArray) {
             jsonMappingTimerData(ele, res);
@@ -70,8 +55,7 @@ public class FileHelper {
         return res;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void jsonMappingTimerData(JsonElement jsonElement, List<TimerData> list) {
+    private static void jsonMappingTimerData(JsonElement jsonElement, List<TimerData> list) {
         JsonObject obj = jsonElement.getAsJsonObject();
         TimerData data = new TimerData();
         data.name = obj.get("name").getAsString();
@@ -82,7 +66,7 @@ public class FileHelper {
         list.add(data);
     }
 
-    public void TimerLogHelper(List<TimerData> timerData) {
+    public static void TimerLogHelper(List<TimerData> timerData) {
         if (timerData == null) {
             Log.i("Timer Data", "No timer was founded");
         } else {

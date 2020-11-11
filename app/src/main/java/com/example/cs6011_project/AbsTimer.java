@@ -15,7 +15,7 @@ public abstract class AbsTimer {
     Timer timer = new Timer();
     TimerTask countdown = new TimerTask() {
         public void run() {
-            if (timeremaining != 0) {
+            if (timeremaining > 0) {
                 timeremaining--;
                 System.out.println(timeremaining);
                 updatetime(timeremaining);

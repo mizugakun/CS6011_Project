@@ -20,6 +20,11 @@ public abstract class AbsTimer {
                 System.out.println(timeremaining);
                 updatetime(timeremaining);
             }
+            else {
+            	timeremaining = 0;
+            	updatetime(timeremaining);
+		timer.cancel();
+            }
         }
     };
     //in main needs to create the object, then do object.start()

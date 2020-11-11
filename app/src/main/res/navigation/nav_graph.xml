@@ -7,7 +7,7 @@
     app:startDestination="@id/timerListFragment">
     <fragment
         android:id="@+id/createTimerFragment"
-        android:name="com.example.cs6011_project.CreateTimerFragment"
+        android:name="com.example.cs6011_project.ui.main.CreateTimerFragment"
         android:label="CreateTimerFragment"
         tools:layout="@layout/fragment_create_timer">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/timerListFragment"
-        android:name="com.example.cs6011_project.TimerListFragment"
+        android:name="com.example.cs6011_project.ui.main.TimerListFragment"
         android:label="TimerListFragment"
         tools:layout="@layout/fragment_timer_list">
         <action

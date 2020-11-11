@@ -1,19 +1,19 @@
 [
   {
     "name": "test01",
-    "label": "covid19_steel",
+    "type": "covid19_steel",
     "duration": "259200000",
     "start_date": "2020-11-08T12:00:00"
   },
   {
     "name": "test01",
-    "label": "covid19_Aluminum",
+    "type": "covid19_Aluminum",
     "duration": "28800000",
     "start_date": "2020-11-09T14:00:00"
   },
   {
     "name": "test01",
-    "label": "covid19_glass",
+    "type": "covid19_glass",
     "duration": "432000000",
     "start_date": "2020-11-08T12:00:00"
   }

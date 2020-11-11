@@ -59,7 +59,7 @@ public class FileHelper {
         JsonObject obj = jsonElement.getAsJsonObject();
         TimerData data = new TimerData();
         data.name = obj.get("name").getAsString();
-        data.label = obj.get("label").getAsString();
+        data.type = obj.get("type").getAsString();
         String s = obj.get("start_date").getAsString();
         data.start_date = LocalDateTime.parse(s);
         data.duration = Long.parseLong(obj.get("duration").getAsString());
@@ -72,7 +72,7 @@ public class FileHelper {
         } else {
             for (TimerData data : timerData) {
                 Log.i("Timer Data", data.name);
-                Log.i("Timer Data", data.label);
+                Log.i("Timer Data", data.type);
                 Log.i("Timer Data", data.start_date.toString());
                 Log.i("Timer Data", String.valueOf(data.duration));
             }

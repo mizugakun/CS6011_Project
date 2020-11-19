@@ -3,7 +3,6 @@ package com.example.cs6011_project;
 import java.util.Date;
 
 public class COVIDTimer extends AbsTimer {
-	
 	String specificAdvice = "Avoid touching your eyes, nose, mouth, \n"
 			+ "	or any object you may place on these places.\n"
 			+ " Wash your hands with soap for at least 20 seconds.\n"
@@ -11,6 +10,7 @@ public class COVIDTimer extends AbsTimer {
 			+ " if available. Be conscious of other surfaces touched.";
 	
 	public COVIDTimer(String type, int secondsago, boolean existing) {
+		setType(type);
 		int initValue = 3600;
 		switch (type) {
 		case "paper": initValue = 10800; break;
@@ -24,6 +24,6 @@ public class COVIDTimer extends AbsTimer {
 		
 		this.setTimeRemaining(initValue, secondsago);
 		this.setAdvice(specificAdvice);
-		setCreated(new Date());
+//		setCreated(new Date());
 	}
 }

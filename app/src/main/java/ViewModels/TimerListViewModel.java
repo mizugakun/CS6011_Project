@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cs6011_project.AbsTimer;
+
 import java.util.List;
 
 import Repositories.TimerListRepository;
@@ -13,7 +15,7 @@ import data.TimerData;
 
 public class TimerListViewModel extends ViewModel {
     private TimerListRepository repo;
-    public MutableLiveData<List<TimerData>> timers;
+    public MutableLiveData<List<AbsTimer>> timers;
 
 
     public TimerListViewModel(@NonNull Application application) {

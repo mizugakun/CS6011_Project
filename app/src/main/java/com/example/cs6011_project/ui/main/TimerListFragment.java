@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
 
 import java.util.List;
@@ -32,10 +33,9 @@ public class TimerListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.timers_list_view);
 
         timerListViewModel = new TimerListViewModel(getActivity().getApplication());
-        timerListViewModel.timers.observe(getViewLifecycleOwner(), new Observer<List<TimerData>>() {
+        timerListViewModel.timers.observe(getViewLifecycleOwner(), new Observer<List<AbsTimer>>() {
             @Override
-            public void onChanged(List<TimerData> timerData) {
-//                FileHelper.TimerLogHelper(timerData);
+            public void onChanged(List<AbsTimer> timerData) {
                 TimersRecyclerAdapter adapter = new TimersRecyclerAdapter(requireContext(), timerData);
                 recyclerView.setAdapter(adapter);
             }

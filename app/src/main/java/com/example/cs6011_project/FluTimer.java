@@ -10,6 +10,7 @@ public class FluTimer extends AbsTimer {
 			+ " if available. Be conscious of other surfaces touched.";
 	
 	public FluTimer(String type, int secondsago, boolean existing) {
+		setType(type);
 		int initValue = 3600;
 		switch (type) {
 		case "paper": initValue = 32400; break;
@@ -23,6 +24,6 @@ public class FluTimer extends AbsTimer {
 		
 		this.setTimeRemaining(initValue, secondsago);
 		this.setAdvice(specificAdvice);
-		setCreated(new Date());
+//		setCreated(new Date());
 	}
 }

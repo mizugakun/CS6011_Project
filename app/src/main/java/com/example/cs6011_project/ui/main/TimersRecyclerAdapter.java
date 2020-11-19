@@ -1,5 +1,6 @@
 package com.example.cs6011_project.ui.main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,16 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
 
 import java.util.List;
+import java.util.Locale;
 
 import data.TimerData;
+import utilities.TimerHelper;
 
 public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAdapter.ViewHolder> {
     Context context;
-    List<TimerData> timers;
-    public TimersRecyclerAdapter(@NonNull Context context, @NonNull List<TimerData> timers) {
+    List<AbsTimer> timers;
+    public TimersRecyclerAdapter(@NonNull Context context, @NonNull List<AbsTimer> timers) {
         this.context = context;
         this.timers = timers;
     }
@@ -31,11 +35,16 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         return new ViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TimerData data = timers.get(position);
-        holder.name.setText(data.name);
-        holder.type.setText(data.type);
+        AbsTimer timer = timers.get(position);
+        holder.name.setText(TimerHelper.getTimersName(timer));
+        holder.type.setText(timer.getType());
+        holder.day.setText(String.format("%03d", timer.getDays()));
+        holder.hour.setText(String.format("%02d", timer.getHours()));
+        holder.minute.setText(String.format("%02d", timer.getMinutes()));
+        holder.second.setText(String.format("%02d", timer.getSeconds()));
     }
 
     @Override

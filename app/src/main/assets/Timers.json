@@ -1,20 +1,20 @@
 [
   {
-    "name": "test01",
-    "type": "covid19_steel",
+    "name": "COVID-19",
+    "type": "plastic",
     "duration": "259200000",
-    "start_date": "2020-11-08T12:00:00"
+    "start_date": "2020-11-19T12:00:00"
   },
   {
-    "name": "test01",
-    "type": "covid19_Aluminum",
+    "name": "COVID-19",
+    "type": "plastic",
     "duration": "28800000",
-    "start_date": "2020-11-09T14:00:00"
+    "start_date": "2020-11-19T14:00:00"
   },
   {
-    "name": "test01",
-    "type": "covid19_glass",
+    "name": "Influenza",
+    "type": "cloth",
     "duration": "432000000",
-    "start_date": "2020-11-08T12:00:00"
+    "start_date": "2020-11-18T12:00:00"
   }
 ]

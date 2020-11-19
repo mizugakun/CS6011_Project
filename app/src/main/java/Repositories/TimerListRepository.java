@@ -11,6 +11,7 @@ import java.util.List;
 
 import data.TimerData;
 import utilities.FileHelper;
+import utilities.TimerHelper;
 
 public class TimerListRepository {
     private Application app;
@@ -22,7 +23,7 @@ public class TimerListRepository {
 
         String jsonString = FileHelper.getTextFromAssets(app,"Timers.json");
         List<AbsTimer> data = FileHelper.ParseHelper(jsonString);
-
         timers.setValue(data);
+        TimerHelper.StartCounting(data);
     }
 }

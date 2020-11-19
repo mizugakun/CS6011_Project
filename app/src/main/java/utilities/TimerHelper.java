@@ -7,6 +7,7 @@ import com.example.cs6011_project.FluTimer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.List;
 
 public class TimerHelper {
     public static int getOffset(int days, int hours, int minutes, int second) {
@@ -40,6 +41,12 @@ public class TimerHelper {
             return new FluTimer(type, offset, true);
         } else {
             return null;
+        }
+    }
+
+    public static void StartCounting(List<AbsTimer> timers) {
+        for (AbsTimer timer : timers) {
+            timer.start();
         }
     }
 }

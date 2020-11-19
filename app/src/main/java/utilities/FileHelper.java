@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.TimerData;
-
 public class FileHelper {
 
     public static String getTextFromAssets(Context context, String fileName) {
@@ -35,7 +33,6 @@ public class FileHelper {
             e.printStackTrace();
             Log.i("LOG_ERROR", "An error occur when reading the data.");
         }
-
         return res;
     }
 

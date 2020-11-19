@@ -22,7 +22,7 @@ public abstract class AbsTimer {
             getLog();
             if (timeremaining > 0) {
                 timeremaining--;
-                System.out.println(timeremaining);
+//                System.out.println(timeremaining);
                 updatetime(timeremaining);
             }
             else {

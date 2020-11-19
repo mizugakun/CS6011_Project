@@ -1,3 +1,5 @@
+package com.example.cs6011_project;
+
 import java.util.Date;
 
 public class COVIDTimer extends AbsTimer {

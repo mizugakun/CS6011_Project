@@ -1,3 +1,5 @@
+package com.example.cs6011_project;
+
 public class TestMain extends AbsTimer {
 	protected static int hours, minutes, seconds;
 	public static void main(String[] args) {		
@@ -6,7 +8,7 @@ public class TestMain extends AbsTimer {
 		AbsTimer testcase = new COVIDTimer("handwashing", finaloffset, false);
 		testcase.start();
 	}	
-	public int getOffset(int days, int hours, int minutes) {
+	public static int getOffset(int days, int hours, int minutes) {
 		int finaloffset = 0;
 			finaloffset += days * 86400;
 			finaloffset += hours * 3600;

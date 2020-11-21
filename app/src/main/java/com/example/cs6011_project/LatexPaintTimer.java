@@ -1,3 +1,5 @@
+package com.example.cs6011_project;
+
 import java.util.Date;
 
 public class LatexPaintTimer extends AbsTimer {
@@ -21,6 +23,6 @@ public class LatexPaintTimer extends AbsTimer {
 		
 		this.setTimeRemaining(initValue, secondsago);
 		this.setAdvice(specificAdvice);
-		setCreated(new Date());
+//		setCreated(new Date());
 	}
 }

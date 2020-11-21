@@ -1,53 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <EditText
-        android:autofillHints="@string/timer_s_name"
-        android:hint="@string/timer_s_name"
-        android:labelFor="@id/label_timer_name"
-        android:id="@+id/form_Timer_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="@+id/label_timer_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/label_timer_name"
-        app:layout_constraintTop_toTopOf="@+id/label_timer_name"
-        app:layout_constraintVertical_bias="0.941" />
+    android:layout_height="match_parent"
+    android:padding="32dp">
 
     <TextView
         android:id="@+id/label_timer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginEnd="28dp"
         android:text="@string/timer_name"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/form_Timer_Name"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/timers_name_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/timers_name_spinner"
+        app:layout_constraintTop_toTopOf="@+id/timers_name_spinner" />
+
+    <Spinner
+        android:id="@+id/timers_name_spinner"
+        android:layout_width="398dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label_timer_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="@string/timer_type"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/timers_type_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/timers_type_spinner"
+        app:layout_constraintTop_toTopOf="@+id/timers_type_spinner" />
+
+
+    <TextView
+        android:id="@+id/label_timer_offset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:text="Offset"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberDecimal"
+        app:layout_constraintEnd_toStartOf="@+id/editTextNumberDecimal"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumberDecimal" />
+
+    <Spinner
+        android:id="@+id/timers_type_spinner"
+        android:layout_width="398dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timers_name_spinner" />
+
 
     <Button
         android:id="@+id/btn_Withdraw_Adding_Timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/withdraw"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_Confirm_Adding_Timer"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -59,5 +77,64 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_Withdraw_Adding_Timer" />
+
+    <Spinner
+        android:id="@+id/spinner_timer_offset_minutes"
+        android:layout_width="96dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timers_type_spinner" />
+
+    <Spinner
+        android:id="@+id/spinner_timer_offset_hours"
+        android:layout_width="96dp"
+        android:layout_height="50dp"
+        android:autofillHints="hours"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_timer_offset_minutes"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_timer_offset_minutes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumberDecimal"
+        app:layout_constraintTop_toTopOf="@+id/spinner_timer_offset_minutes" />
+
+    <EditText
+        android:id="@+id/editTextNumberDecimal"
+        android:layout_width="96dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="days"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_timer_offset_hours"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_timer_offset_hours"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toEndOf="@+id/label_timer_offset"
+        app:layout_constraintStart_toStartOf="@+id/timers_type_spinner"
+        app:layout_constraintTop_toTopOf="@+id/spinner_timer_offset_hours" />
+
+    <TextView
+        android:id="@+id/label_hr"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:text="hr"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_timer_offset_hours"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_timer_offset_hours"
+        app:layout_constraintStart_toStartOf="@+id/spinner_timer_offset_hours" />
+
+    <TextView
+        android:id="@+id/label_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="min"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_timer_offset_minutes"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_timer_offset_minutes"
+        app:layout_constraintStart_toStartOf="@+id/spinner_timer_offset_minutes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.example.cs6011_project.R;
 
@@ -85,5 +87,35 @@ public class CreateTimerFragment extends Fragment {
             }
         });
 
+        // create Spinner Content
+        createSpinner(view, R.id.timers_name_spinner, R.array.timer_name_array, true);
+        createSpinner(view, R.id.timers_type_spinner, R.array.timer_type_array, true);
+        createSpinner(view, R.id.spinner_timer_offset_hours, 24, false);
+        createSpinner(view, R.id.spinner_timer_offset_minutes, 60, false);
+
+    }
+
+    private void createSpinner(View view, int SpinnerId, int val, boolean isArrayId) {
+        Spinner spinner = (Spinner) view.findViewById(SpinnerId);
+        ArrayAdapter<CharSequence> adapter;
+        if (isArrayId) {
+            adapter = createAdapterWithArrayId(val);
+        } else {
+            adapter = createAdapterWithCount(val);
+        }
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+    }
+    private ArrayAdapter<CharSequence> createAdapterWithArrayId (int ArrayId) {
+        return ArrayAdapter.createFromResource(getContext(),
+                ArrayId, android.R.layout.simple_spinner_item);
+    }
+    private ArrayAdapter<CharSequence> createAdapterWithCount(int Counts) {
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item);
+        for (int i = 0 ; i < Counts; i++) {
+            adapter.add(String.format("%02d", i));
+        }
+        return adapter;
     }
 }

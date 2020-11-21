@@ -9,4 +9,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="timer_type">Timer Type</string>
     <string name="delete">Delete</string>
+
+    <string-array name="timer_name_array">
+        <item>COVID-19</item>
+        <item>Influenza</item>
+        <item>Latex Painter</item>
+        <item>Craft Glue</item>
+    </string-array>
+
+    <string-array name="timer_type_array">
+        <item>paper</item>
+        <item>cardboard</item>
+        <item>plastic</item>
+        <item>touchscreen</item>
+        <item>cloth</item>
+        <item>handwashing</item>
+    </string-array>
+
 </resources>

@@ -1,6 +1,6 @@
 package com.example.cs6011_project;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class COVIDTimer extends AbsTimer {
 	String specificAdvice = "Avoid touching your eyes, nose, mouth, \n"
@@ -8,22 +8,25 @@ public class COVIDTimer extends AbsTimer {
 			+ " Wash your hands with soap for at least 20 seconds.\n"
 			+ " dry hands and operate faucet with disposable paper towel\n"
 			+ " if available. Be conscious of other surfaces touched.";
-	
-	public COVIDTimer(String type, int secondsago, boolean existing) {
-		setType(type);
+
+	public COVIDTimer(String timerName, String type, LocalDateTime startDate) {
+		super(timerName, type, startDate);
+		int duration = getInit(type);
+		this.setDuration(duration);
+		this.setAdvice(specificAdvice);
+	}
+
+	private int getInit(String type) {
 		int initValue = 3600;
 		switch (type) {
-		case "paper": initValue = 10800; break;
-		case "cardboard": initValue = 86400; break;
-		case "plastic": initValue = 432000; break;
-		case "touchscreen": initValue = 432000; break;
-		case "cloth": initValue = 172800; break;
-		case "handwashing": initValue = 30; break;
-		//reference: https://www.sfchronicle.com/health/article/Coronavirus-FAQ-How-long-does-it-stay-on-15152021.php
+			case "paper": initValue = 10800; break;
+			case "cardboard": initValue = 86400; break;
+			case "plastic": initValue = 432000; break;
+			case "touchscreen": initValue = 432000; break;
+			case "cloth": initValue = 172800; break;
+			case "handwashing": initValue = 30; break;
+			//reference: https://www.sfchronicle.com/health/article/Coronavirus-FAQ-How-long-does-it-stay-on-15152021.php
 		}
-		
-		this.setTimeRemaining(initValue, secondsago);
-		this.setAdvice(specificAdvice);
-//		setCreated(new Date());
+		return initValue;
 	}
 }

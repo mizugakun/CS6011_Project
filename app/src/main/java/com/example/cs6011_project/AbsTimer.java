@@ -2,45 +2,48 @@ package com.example.cs6011_project;
 
 import android.util.Log;
 
+import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Date;
+
+import utilities.TimerHelper;
 
 public abstract class AbsTimer {
-//	private Date created;
     private int timeremaining;
-    protected String advice, type;
+    protected int duration;
+    protected LocalDateTime startDate;
+    protected String timerName, type, advice;
     protected int days, hours, minutes, seconds;
+    private Timer timer;
+    private TimerTask countdown;
 
-    public AbsTimer() {
-        
+    public AbsTimer(String timerName, String type, LocalDateTime startDate) {
+        this.timerName = timerName;
+        this.type = type;
+        this.startDate = startDate;
+
+        timer = new Timer();
+        countdown = new TimerTask() {
+            public void run() {
+                getLog();
+                if (timeremaining > 0) {
+                    timeremaining--;
+                    updateTime(timeremaining);
+                }
+                else {
+                    timeremaining = 0;
+                    updateTime(timeremaining);
+                    timer.cancel();
+                }
+            }
+        };
     }
-
-    Timer timer = new Timer();
-    TimerTask countdown = new TimerTask() {
-        public void run() {
-            getLog();
-            if (timeremaining > 0) {
-                timeremaining--;
-//                System.out.println(timeremaining);
-                updatetime(timeremaining);
-            }
-            else {
-                timeremaining = 0;
-                updatetime(timeremaining);
-                timer.cancel();
-            }
-        }
-    };
 
     //in main needs to create the object, then do object.start()
     public void start() {
         timer.scheduleAtFixedRate(countdown, 0, 1000);
     }
-    public void setTimeRemaining(int totaltime, int offset) {
-    	timeremaining = totaltime - offset;
-    }
-    public void updatetime(int totalsec) {
+    public void updateTime(int totalsec) {
     	int remainder;
     	days = totalsec / 86400;
     	remainder = totalsec % 86400;
@@ -53,19 +56,21 @@ public abstract class AbsTimer {
     public void setAdvice(String newAdvice) {
     	advice = newAdvice;
     }
-    public void setType (String type) { this.type = type; }
-//    public void setCreated(Date todayDate) {
-//    	created = todayDate;
-//    }
+    public void setDuration(int duration) {
+        this.duration = duration;
+        timeremaining = duration - TimerHelper.getOffset(startDate);
+    }
     public void getLog() {
         Log.i("Timer Data", String.format("%d days %d:%d:%d", days, hours, minutes, seconds));
     }
+
+    public String getTimerName() { return timerName; }
     public String getType() { return type; }
+    public int getDuration() {return duration; }
+    public LocalDateTime getStartDate() { return startDate; }
+
     public int getDays() { return days; }
     public int getHours() { return hours; }
     public int getMinutes() { return minutes; }
     public int getSeconds() { return seconds; }
-
-
-
 }

@@ -1,6 +1,6 @@
 package com.example.cs6011_project;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class CraftGlueTimer extends AbsTimer {
 	String specificAdvice = "Avoid touching your eyes, nose, mouth, \n"
@@ -8,20 +8,24 @@ public class CraftGlueTimer extends AbsTimer {
 			+ " Soak your hands in warm water for several minutes.\n"
 			+ " Scrub hands until craft glue is removed.";
 	
-	public CraftGlueTimer(String type, int secondsago, boolean existing) {
+	public CraftGlueTimer(String timerName, String type, LocalDateTime startDate) {
+		super(timerName, type, startDate);
+		int duration = getInit(type);
+		this.setDuration(duration);
+		this.setAdvice(specificAdvice);
+	}
+
+	private int getInit(String type) {
 		int initValue = 3600;
 		switch (type) {
-		case "paper": initValue = 86400; break;
-		case "cardboard": initValue = 86400; break;
-		case "plastic": initValue = 86400; break;
-		case "touchscreen": initValue = 86400; break;
-		case "cloth": initValue = 86400; break;
-		case "handwashing": initValue = 420; break;
-		//reference: https://www.wikihow.com/Get-Glue-off-Your-Hands
+			case "paper": initValue = 86400; break;
+			case "cardboard": initValue = 86400; break;
+			case "plastic": initValue = 86400; break;
+			case "touchscreen": initValue = 86400; break;
+			case "cloth": initValue = 86400; break;
+			case "handwashing": initValue = 420; break;
+			//reference: https://www.wikihow.com/Get-Glue-off-Your-Hands
 		}
-		
-		this.setTimeRemaining(initValue, secondsago);
-		this.setAdvice(specificAdvice);
-//		setCreated(new Date());
+		return initValue;
 	}
 }

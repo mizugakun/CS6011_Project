@@ -2,7 +2,6 @@ package com.example.cs6011_project.ui.main;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,6 @@ import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
 
 import java.util.List;
-import java.util.Locale;
-
-import data.TimerData;
-import utilities.TimerHelper;
 
 public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAdapter.ViewHolder> {
     Context context;
@@ -40,7 +35,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AbsTimer timer = timers.get(position);
-        holder.name.setText(TimerHelper.getTimersName(timer));
+        holder.name.setText(timer.getTimerName());
         holder.type.setText(timer.getType());
         holder.day.setText(String.format("%03d", timer.getDays()));
         holder.hour.setText(String.format("%02d", timer.getHours()));

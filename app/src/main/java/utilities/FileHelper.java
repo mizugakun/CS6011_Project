@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cs6011_project.AbsTimer;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -64,7 +65,7 @@ public class FileHelper {
         int duration = obj.get("duration").getAsInt();
         LocalDateTime start_date = LocalDateTime.parse(obj.get("start_date").getAsString());
 
-        timer = TimerHelper.getInstance(timer_name, type, duration, start_date);
+        timer = TimerHelper.getInstance(timer_name, type, start_date);
 
         if (timer != null) {
             list.add(timer);

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp">
@@ -44,9 +43,9 @@
         android:layout_marginEnd="64dp"
         android:text="Offset"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumberDecimal"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumberDecimal" />
+        app:layout_constraintBottom_toBottomOf="@+id/editText_timers_offset_day"
+        app:layout_constraintEnd_toStartOf="@+id/editText_timers_offset_day"
+        app:layout_constraintTop_toTopOf="@+id/editText_timers_offset_day" />
 
     <Spinner
         android:id="@+id/timers_type_spinner"
@@ -95,11 +94,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/spinner_timer_offset_minutes"
         app:layout_constraintEnd_toStartOf="@+id/spinner_timer_offset_minutes"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/editText_timers_offset_day"
         app:layout_constraintTop_toTopOf="@+id/spinner_timer_offset_minutes" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/editText_timers_offset_day"
         android:layout_width="96dp"
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"

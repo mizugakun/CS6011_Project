@@ -1,5 +1,6 @@
 package com.example.cs6011_project.ui.main;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.cs6011_project.R;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -75,15 +80,13 @@ public class CreateTimerFragment extends Fragment {
         view.findViewById(R.id.btn_Withdraw_Adding_Timer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(CreateTimerFragment.this)
-                        .navigate(R.id.action_createTimerFragment_to_timerListFragment);
+                NavHostFragment.findNavController(CreateTimerFragment.this).popBackStack();
             }
         });
         view.findViewById(R.id.btn_Confirm_Adding_Timer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(CreateTimerFragment.this)
-                        .navigate(R.id.action_createTimerFragment_to_timerListFragment);
+                createTimerEvent(v);
             }
         });
 
@@ -95,8 +98,45 @@ public class CreateTimerFragment extends Fragment {
 
     }
 
+    private void createTimerEvent(View view) {
+        if (isInputCorrect()) {
+            //create timer
+
+
+
+
+            closeKeyBoard(view);
+            NavHostFragment.findNavController(CreateTimerFragment.this).popBackStack();
+        } else {
+            // show alert
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("WRONG FORMAT")
+                        .setMessage("Please enter valid number")
+                        .setPositiveButton(R.string.got_it, null)
+                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .show();
+        }
+//        NavHostFragment.findNavController(CreateTimerFragment.this)
+//                .navigate(R.id.action_createTimerFragment_to_timerListFragment);
+    }
+
+    private boolean isInputCorrect() {
+        String days;
+        EditText offset_day_view = getView().findViewById(R.id.editText_timers_offset_day);
+        days = offset_day_view.getText().toString();
+
+        int val;
+        try {
+            val = Integer.parseInt(days);
+        } catch (NumberFormatException e) {
+            val = -1;
+        }
+
+        return val >= 0;
+    }
+
     private void createSpinner(View view, int SpinnerId, int val, boolean isArrayId) {
-        Spinner spinner = (Spinner) view.findViewById(SpinnerId);
+        Spinner spinner = view.findViewById(SpinnerId);
         ArrayAdapter<CharSequence> adapter;
         if (isArrayId) {
             adapter = createAdapterWithArrayId(val);
@@ -107,15 +147,22 @@ public class CreateTimerFragment extends Fragment {
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
     }
+
     private ArrayAdapter<CharSequence> createAdapterWithArrayId (int ArrayId) {
         return ArrayAdapter.createFromResource(getContext(),
                 ArrayId, android.R.layout.simple_spinner_item);
     }
     private ArrayAdapter<CharSequence> createAdapterWithCount(int Counts) {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item);
         for (int i = 0 ; i < Counts; i++) {
             adapter.add(String.format("%02d", i));
         }
         return adapter;
+    }
+
+    private void closeKeyBoard(View view) {
+        View rootView = view.getRootView();
+        InputMethodManager imm = getSystemService(rootView.getContext(), InputMethodManager.class);
+        imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
     }
 }

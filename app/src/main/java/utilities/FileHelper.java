@@ -1,8 +1,6 @@
 package utilities;
 
-import android.app.Application;
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import com.example.cs6011_project.AbsTimer;
@@ -12,12 +10,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,10 +27,40 @@ import data.TimerData;
 
 public class FileHelper {
 
-    public static String getTextFromAssets(Context context, String fileName) {
+    public static String getTextFromSource(Context context, String filename) {
+        File file = new File(context.getFilesDir().getAbsolutePath() + "/" + filename);
+        if (file.exists()) {
+            return getStringFromCache(context, filename);
+        }
+        return getStringFromAssets(context, filename);
+    }
+
+    private static String getStringFromCache(Context context, String filename) {
         String res = null;
         try {
-            InputStream is = context.getAssets().open(fileName);
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader inputStreamReader =
+                    new InputStreamReader(fis, StandardCharsets.UTF_8);
+            StringBuilder stringBuilder = new StringBuilder();
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String line = reader.readLine();
+            while (line != null) {
+                stringBuilder.append(line).append('\n');
+                line = reader.readLine();
+            }
+
+            res = stringBuilder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.i("LOG_ERROR", "An error occur when reading the data.");
+        }
+
+        return res;
+    }
+    private static String getStringFromAssets(Context context, String filename) {
+        String res = null;
+        try {
+            InputStream is = context.getAssets().open(filename);
 
             int size = is.available();
             byte[] buffer = new byte[size];
@@ -97,39 +127,15 @@ public class FileHelper {
         return json;
     }
 
-    public static void saveData(Application app, String filename, List<AbsTimer> timers) {
+    public static void saveData(Context context, String filename, List<AbsTimer> timers) {
         String json = ParseHelper(timers);
-        Context context = app.getBaseContext();
+        try {
+            BufferedWriter fos = new BufferedWriter(new FileWriter(context.getFilesDir().getAbsolutePath() + "/" + filename));
+            fos.write(json.trim());
+            fos.close();
 
-//        try {
-//            File root = new File(context.getFilesDir(), "Notes");
-//            if (!root.exists()) {
-//                root.mkdirs();
-//            }
-//            File gpxfile = new File(root, filename);
-//            FileWriter writer = new FileWriter(gpxfile);
-//            writer.append(json);
-//            writer.flush();
-//            writer.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        } catch (Exception e) {
+
+        }
     }
-
-    // obsolete
-//    public static void TimerLogHelper(List<TimerData> timerData) {
-//        if (timerData == null) {
-//            Log.i("Timer Data", "No timer was founded");
-//        } else {
-//            for (TimerData data : timerData) {
-//                Log.i("Timer Data", data.name);
-//                Log.i("Timer Data", data.type);
-//                Log.i("Timer Data", data.start_date.toString());
-//                Log.i("Timer Data", String.valueOf(data.duration));
-//            }
-//        }
-//
-//    }
 }

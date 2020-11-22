@@ -23,10 +23,11 @@ public class TimerListRepository {
         app = application;
         timers = new MutableLiveData<>();
         String filename = application.getString(R.string.TimerStoreFile);
+        String jsonString = FileHelper.getTextFromSource(application, filename);
 
-        String jsonString = FileHelper.getTextFromAssets(application, filename);
         List<AbsTimer> data = FileHelper.ParseHelper(jsonString);
         TimerHelper.StartCounting(data);
+
         timers.setValue(data);
         updateValue();
     }

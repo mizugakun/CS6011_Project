@@ -10,6 +10,7 @@
     <string name="timer_type">Timer Type</string>
     <string name="delete">Delete</string>
     <string name="got_it">Got it</string>
+    <string name="TimerStoreFile">Timers.json</string>
 
     <string-array name="timer_name_array">
         <item>COVID-19</item>

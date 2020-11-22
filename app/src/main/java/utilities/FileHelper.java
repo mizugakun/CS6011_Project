@@ -1,6 +1,8 @@
 package utilities;
 
+import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.example.cs6011_project.AbsTimer;
@@ -10,12 +12,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import data.TimerData;
 
 public class FileHelper {
 
@@ -70,6 +78,44 @@ public class FileHelper {
         if (timer != null) {
             list.add(timer);
         }
+    }
+
+    public static String ParseHelper (List<AbsTimer> timers) {
+        List<TimerData> data = new ArrayList<>();
+
+        for (AbsTimer timer : timers) {
+            TimerData timerData = new TimerData();
+            timerData.name = timer.getTimerName();
+            timerData.type = timer.getType();
+            timerData.duration = timer.getDuration();
+            timerData.start_date = timer.getStartDate().toString();
+            data.add(timerData);
+        }
+
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+        return json;
+    }
+
+    public static void saveData(Application app, String filename, List<AbsTimer> timers) {
+        String json = ParseHelper(timers);
+        Context context = app.getBaseContext();
+
+//        try {
+//            File root = new File(context.getFilesDir(), "Notes");
+//            if (!root.exists()) {
+//                root.mkdirs();
+//            }
+//            File gpxfile = new File(root, filename);
+//            FileWriter writer = new FileWriter(gpxfile);
+//            writer.append(json);
+//            writer.flush();
+//            writer.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     // obsolete

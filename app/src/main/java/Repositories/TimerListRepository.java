@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cs6011_project.AbsTimer;
+import com.example.cs6011_project.R;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import data.TimerData;
 import utilities.FileHelper;
 import utilities.TimerHelper;
 
@@ -22,8 +22,9 @@ public class TimerListRepository {
     public TimerListRepository(@NonNull Application application) {
         app = application;
         timers = new MutableLiveData<>();
+        String filename = application.getString(R.string.TimerStoreFile);
 
-        String jsonString = FileHelper.getTextFromAssets(app,"Timers.json");
+        String jsonString = FileHelper.getTextFromAssets(application, filename);
         List<AbsTimer> data = FileHelper.ParseHelper(jsonString);
         TimerHelper.StartCounting(data);
         timers.setValue(data);

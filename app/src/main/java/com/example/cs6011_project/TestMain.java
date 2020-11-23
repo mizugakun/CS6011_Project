@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class TestMain extends AbsTimer {
 	protected static int hours, minutes, seconds;
 
-	public TestMain(String timerName, String type, LocalDateTime startDate) {
-		super(timerName, type, startDate);
+	public TestMain(String timerName, String type, int duration, LocalDateTime startDate) {
+		super(timerName, type, duration, startDate);
 	}
 
 	public static void main(String[] args) {

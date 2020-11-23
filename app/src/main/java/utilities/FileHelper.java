@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cs6011_project.AbsTimer;
+import com.example.cs6011_project.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -26,6 +27,11 @@ import java.util.List;
 import data.TimerData;
 
 public class FileHelper {
+
+    public static List<AbsTimer> getAbsTimersFromStorage(Context context, String filename) {
+        String jsonString = getTextFromSource(context, filename);
+        return ParseHelper(context, jsonString);
+    }
 
     public static String getTextFromSource(Context context, String filename) {
         File file = new File(context.getFilesDir().getAbsolutePath() + "/" + filename);
@@ -75,7 +81,7 @@ public class FileHelper {
         return res;
     }
 
-    public static List<AbsTimer> ParseHelper(String jsonString) {
+    public static List<AbsTimer> ParseHelper(Context context, String jsonString) {
         List<AbsTimer> res = new ArrayList<>();
 
         if (jsonString == null) {
@@ -86,13 +92,13 @@ public class FileHelper {
         JsonArray jsonArray= element.getAsJsonArray();
 
         for (JsonElement ele : jsonArray) {
-            jsonMappingTimerData(ele, res);
+            jsonMappingAbsTimers(ele, res, context);
         }
 
         return res;
     }
 
-    private static void jsonMappingTimerData(JsonElement jsonElement, List<AbsTimer> list) {
+    private static void jsonMappingAbsTimers(JsonElement jsonElement, List<AbsTimer> list, Context context) {
         JsonObject obj = jsonElement.getAsJsonObject();
         AbsTimer timer;
 
@@ -103,39 +109,48 @@ public class FileHelper {
         int duration = obj.get("duration").getAsInt();
         LocalDateTime start_date = LocalDateTime.parse(obj.get("start_date").getAsString());
 
-        timer = TimerHelper.getInstance(timer_name, type, start_date);
+        timer = TimerHelper.getInstance(timer_name, type, getDurationHelper(context, timer_name, type),start_date);
 
         if (timer != null) {
             list.add(timer);
         }
     }
 
-    public static String ParseHelper (List<AbsTimer> timers) {
-        List<TimerData> data = new ArrayList<>();
+    public static int getDurationHelper (Context context, String timerName, String timerType) {
+        String jsonString = getTextFromSource(context, "Duration.json");
 
-        for (AbsTimer timer : timers) {
-            TimerData timerData = new TimerData();
-            timerData.name = timer.getTimerName();
-            timerData.type = timer.getType();
-            timerData.duration = timer.getDuration();
-            timerData.start_date = timer.getStartDate().toString();
-            data.add(timerData);
-        }
-
-        Gson gson = new Gson();
-        String json = gson.toJson(data);
-        return json;
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(jsonString);
+        JsonObject obj = element.getAsJsonObject();
+        return obj.get(timerName).getAsJsonObject().get(timerType).getAsInt();
     }
 
-    public static void saveData(Context context, String filename, List<AbsTimer> timers) {
-        String json = ParseHelper(timers);
+    public static void addOneTimer(Context context, TimerData data) {
+        // get all timers in storage and parse to jsonArray
+        String allTimersJSON = getTextFromSource(context, context.getString(R.string.TimersJSON));
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray = parser.parse(allTimersJSON).getAsJsonArray();
+
+        // get new timer and parse to json element
+        Gson gson = new Gson();
+        String singleTimerJSON = gson.getAdapter(TimerData.class).toJson(data);
+        JsonElement newTimer = parser.parse(singleTimerJSON).getAsJsonObject();
+
+        // add json element into json array
+        jsonArray.add(newTimer);
+
+        //parse json array to json string
+        String jsonString = gson.toJson(jsonArray);
+        saveData(context, jsonString);
+    }
+    public static void saveData(Context context, String jsonString) {
         try {
-            BufferedWriter fos = new BufferedWriter(new FileWriter(context.getFilesDir().getAbsolutePath() + "/" + filename));
-            fos.write(json.trim());
+            BufferedWriter fos = new BufferedWriter(new FileWriter(context.getFilesDir().getAbsolutePath() + "/" + context.getString(R.string.TimersJSON)));
+            fos.write(jsonString.trim());
             fos.close();
 
         } catch (Exception e) {
-
+            Log.i("LOG_TAG", "ERROR OCCUR WHEN SAVING DATA.");
         }
     }
 }

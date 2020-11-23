@@ -1,0 +1,35 @@
+{
+  "COVID-19": {
+    "paper": "10800",
+    "cardboard": "86400",
+    "plastic": "432000",
+    "touchscreen": "432000",
+    "cloth": "172800",
+    "handwashing": "30"
+  },
+  "Influenza": {
+    "paper": "32400",
+    "cardboard": "259200",
+    "plastic": "259200",
+    "touchscreen": "259200",
+    "cloth": "32400",
+    "handwashing": "30"
+  },
+  "Latex Painter": {
+    "paper": "5400",
+    "cardboard": "5400",
+    "plastic": "5400",
+    "touchscreen": "5400",
+    "cloth": "5400",
+    "handwashing": "30"
+  },
+  "Craft Glue": {
+    "paper": "86400",
+    "cardboard": "86400",
+    "plastic": "86400",
+    "touchscreen": "86400",
+    "cloth": "86400",
+    "handwashing": "420"
+  }
+
+}

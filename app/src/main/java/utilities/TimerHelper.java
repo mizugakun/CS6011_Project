@@ -12,7 +12,7 @@ import java.time.Period;
 import java.util.List;
 
 public class TimerHelper {
-    public static int getOffset(int days, int hours, int minutes, int second) {
+    public static int getTotalSeconds(int days, int hours, int minutes, int second) {
         int finaloffset = 0;
         finaloffset += days * 86400;
         finaloffset += hours * 3600;
@@ -24,19 +24,25 @@ public class TimerHelper {
         LocalDateTime now = LocalDateTime.now();
         Period p = Period.between(startTime.toLocalDate(), now.toLocalDate());
         Duration d = Duration.between(startTime.toLocalTime(), now.toLocalTime());
-        return getOffset(p.getDays(), 0, 0, (int)d.getSeconds());
+        return getTotalSeconds(p.getDays(), 0, 0, (int)d.getSeconds());
     }
 
-    public static AbsTimer getInstance(String timersName, String type, LocalDateTime startDate) {
+    public static LocalDateTime getStartDate(int days, int hours, int minutes) {
+        LocalDateTime now = LocalDateTime.now();
+        Duration d = Duration.ofSeconds(getTotalSeconds(days, hours, minutes, 0));
+        return now.minus(d);
+    }
+
+    public static AbsTimer getInstance(String timersName, String type, int duration, LocalDateTime startDate) {
         switch (timersName) {
             case "COVID-19":
-                return new COVIDTimer(timersName, type, startDate);
+                return new COVIDTimer(timersName, type, duration,startDate);
             case "Influenza":
-                return new FluTimer(timersName, type, startDate);
+                return new FluTimer(timersName, type, duration, startDate);
             case "Latex Painter":
-                return new LatexPaintTimer(timersName, type, startDate);
+                return new LatexPaintTimer(timersName, type, duration, startDate);
             case "Craft Glue":
-                return new CraftGlueTimer(timersName, type, startDate);
+                return new CraftGlueTimer(timersName, type, duration, startDate);
             default:
                 return null;
         }

@@ -10,17 +10,15 @@ import utilities.TimerHelper;
 
 public abstract class AbsTimer {
     private int timeremaining;
-    protected int duration;
-    protected LocalDateTime startDate;
     protected String timerName, type, advice;
     protected int days, hours, minutes, seconds;
     private Timer timer;
     private TimerTask countdown;
 
-    public AbsTimer(String timerName, String type, LocalDateTime startDate) {
+    public AbsTimer(String timerName, String type, int duration, LocalDateTime startDate) {
         this.timerName = timerName;
         this.type = type;
-        this.startDate = startDate;
+        timeremaining = duration - TimerHelper.getOffset(startDate);
 
         timer = new Timer();
         countdown = new TimerTask() {
@@ -56,18 +54,12 @@ public abstract class AbsTimer {
     public void setAdvice(String newAdvice) {
     	advice = newAdvice;
     }
-    public void setDuration(int duration) {
-        this.duration = duration;
-        timeremaining = duration - TimerHelper.getOffset(startDate);
-    }
     public void getLog() {
         Log.i("Timer Data", String.format("%d days %d:%d:%d", days, hours, minutes, seconds));
     }
 
     public String getTimerName() { return timerName; }
     public String getType() { return type; }
-    public int getDuration() {return duration; }
-    public LocalDateTime getStartDate() { return startDate; }
 
     public int getDays() { return days; }
     public int getHours() { return hours; }

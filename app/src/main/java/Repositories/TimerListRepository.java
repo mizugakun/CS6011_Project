@@ -22,10 +22,8 @@ public class TimerListRepository {
     public TimerListRepository(@NonNull Application application) {
         app = application;
         timers = new MutableLiveData<>();
-        String filename = application.getString(R.string.TimerStoreFile);
-        String jsonString = FileHelper.getTextFromSource(application, filename);
-
-        List<AbsTimer> data = FileHelper.ParseHelper(jsonString);
+        List<AbsTimer> data = FileHelper.getAbsTimersFromStorage(application,
+                                                        application.getString(R.string.TimersJSON));
         TimerHelper.StartCounting(data);
 
         timers.setValue(data);

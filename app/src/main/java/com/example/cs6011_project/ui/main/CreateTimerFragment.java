@@ -18,6 +18,12 @@ import android.widget.Spinner;
 
 import com.example.cs6011_project.R;
 
+import java.time.LocalDateTime;
+
+import data.TimerData;
+import utilities.FileHelper;
+import utilities.TimerHelper;
+
 import static androidx.core.content.ContextCompat.getSystemService;
 
 ///**
@@ -67,6 +73,12 @@ public class CreateTimerFragment extends Fragment {
 //        }
 //    }
 
+    Spinner timerName;
+    Spinner timerType;
+    EditText offset_day;
+    Spinner offset_hr;
+    Spinner offset_min;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,20 +102,31 @@ public class CreateTimerFragment extends Fragment {
             }
         });
 
-        // create Spinner Content
-        createSpinner(view, R.id.timers_name_spinner, R.array.timer_name_array, true);
-        createSpinner(view, R.id.timers_type_spinner, R.array.timer_type_array, true);
-        createSpinner(view, R.id.spinner_timer_offset_hours, 24, false);
-        createSpinner(view, R.id.spinner_timer_offset_minutes, 60, false);
+        // get UI Components
+        timerName = view.findViewById(R.id.timers_name_spinner);
+        timerType = view.findViewById(R.id.timers_type_spinner);
+        offset_day =  view.findViewById(R.id.editText_timers_offset_day);
+        offset_hr = view.findViewById(R.id.spinner_timer_offset_hours);
+        offset_min = view.findViewById(R.id.spinner_timer_offset_minutes);
 
+        // create Spinner Content
+        createSpinner(timerName, R.array.timer_name_array, true);
+        createSpinner(timerType, R.array.timer_type_array, true);
+        createSpinner(offset_hr, 24, false);
+        createSpinner(offset_min, 60, false);
     }
 
     private void createTimerEvent(View view) {
         if (isInputCorrect()) {
             //create timer
+            String name = timerName.getSelectedItem().toString();
+            String type = timerType.getSelectedItem().toString();
+            LocalDateTime startDate = TimerHelper.getStartDate(Integer.parseInt(offset_day.getText().toString()),
+                                               Integer.parseInt(offset_hr.getSelectedItem().toString()),
+                                                Integer.parseInt(offset_min.getSelectedItem().toString()));
+            int duration = FileHelper.getDurationHelper(getContext(), name, type);
 
-
-
+            FileHelper.addOneTimer(getContext(), new TimerData(name, type, duration, startDate.toString()));
 
             closeKeyBoard(view);
             NavHostFragment.findNavController(CreateTimerFragment.this).popBackStack();
@@ -135,8 +158,7 @@ public class CreateTimerFragment extends Fragment {
         return val >= 0;
     }
 
-    private void createSpinner(View view, int SpinnerId, int val, boolean isArrayId) {
-        Spinner spinner = view.findViewById(SpinnerId);
+    private void createSpinner(Spinner spinner, int val, boolean isArrayId) {
         ArrayAdapter<CharSequence> adapter;
         if (isArrayId) {
             adapter = createAdapterWithArrayId(val);

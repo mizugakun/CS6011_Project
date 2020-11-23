@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import utilities.TimerHelper;
 
 public abstract class AbsTimer {
-    private int timeremaining;
+    private int timeRemaining;
     protected String timerName, type, advice;
     protected int days, hours, minutes, seconds;
     private Timer timer;
@@ -18,19 +18,19 @@ public abstract class AbsTimer {
     public AbsTimer(String timerName, String type, int duration, LocalDateTime startDate) {
         this.timerName = timerName;
         this.type = type;
-        timeremaining = duration - TimerHelper.getOffset(startDate);
+        timeRemaining = duration - TimerHelper.getOffset(startDate);
 
         timer = new Timer();
         countdown = new TimerTask() {
             public void run() {
                 getLog();
-                if (timeremaining > 0) {
-                    timeremaining--;
-                    updateTime(timeremaining);
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                    updateTime(timeRemaining);
                 }
                 else {
-                    timeremaining = 0;
-                    updateTime(timeremaining);
+                    timeRemaining = 0;
+                    updateTime(timeRemaining);
                     timer.cancel();
                 }
             }
@@ -60,6 +60,7 @@ public abstract class AbsTimer {
 
     public String getTimerName() { return timerName; }
     public String getType() { return type; }
+    public int getTimeRemaining(){ return timeRemaining; }
 
     public int getDays() { return days; }
     public int getHours() { return hours; }

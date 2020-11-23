@@ -122,7 +122,7 @@ public class CreateTimerFragment extends Fragment {
             String name = timerName.getSelectedItem().toString();
             String type = timerType.getSelectedItem().toString();
             LocalDateTime startDate = TimerHelper.getStartDate(Integer.parseInt(offset_day.getText().toString()),
-                                               Integer.parseInt(offset_hr.getSelectedItem().toString()),
+                                                Integer.parseInt(offset_hr.getSelectedItem().toString()),
                                                 Integer.parseInt(offset_min.getSelectedItem().toString()));
             int duration = FileHelper.getDurationHelper(getContext(), name, type);
 
@@ -139,8 +139,6 @@ public class CreateTimerFragment extends Fragment {
                         .setIcon(R.drawable.ic_launcher_foreground)
                         .show();
         }
-//        NavHostFragment.findNavController(CreateTimerFragment.this)
-//                .navigate(R.id.action_createTimerFragment_to_timerListFragment);
     }
 
     private boolean isInputCorrect() {

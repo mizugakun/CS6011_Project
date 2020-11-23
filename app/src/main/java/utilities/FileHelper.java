@@ -30,7 +30,10 @@ public class FileHelper {
 
     public static List<AbsTimer> getAbsTimersFromStorage(Context context, String filename) {
         String jsonString = getTextFromSource(context, filename);
-        return ParseHelper(context, jsonString);
+        if (jsonString != null) {
+            return ParseHelper(context, jsonString);
+        }
+        return new ArrayList<>();
     }
 
     public static String getTextFromSource(Context context, String filename) {
@@ -104,12 +107,10 @@ public class FileHelper {
 
         String timer_name = obj.get("name").getAsString();
         String type = obj.get("type").getAsString();
-
-        // get duration and start date to calculate remaining time when the app start
-        int duration = obj.get("duration").getAsInt();
+        int duration = getDurationHelper(context, timer_name, type);
         LocalDateTime start_date = LocalDateTime.parse(obj.get("start_date").getAsString());
 
-        timer = TimerHelper.getInstance(timer_name, type, getDurationHelper(context, timer_name, type),start_date);
+        timer = TimerHelper.getInstance(timer_name, type, duration, start_date);
 
         if (timer != null) {
             list.add(timer);
@@ -126,7 +127,7 @@ public class FileHelper {
     }
 
     public static void addOneTimer(Context context, TimerData data) {
-        // get all timers in storage and parse to jsonArray
+        // get all timers in the storage and parse those into jsonArray
         String allTimersJSON = getTextFromSource(context, context.getString(R.string.TimersJSON));
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(allTimersJSON).getAsJsonArray();

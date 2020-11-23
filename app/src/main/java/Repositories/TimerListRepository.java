@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +26,13 @@ public class TimerListRepository {
         timers = new MutableLiveData<>();
         List<AbsTimer> data = FileHelper.getAbsTimersFromStorage(application,
                                                         application.getString(R.string.TimersJSON));
+        //sorting by remaining time
+        Collections.sort(data, new Comparator<AbsTimer>() {
+            @Override
+            public int compare(AbsTimer o1, AbsTimer o2) {
+                return o2.getTimeRemaining() - o1.getTimeRemaining();
+            }
+        });
         TimerHelper.StartCounting(data);
 
         timers.setValue(data);

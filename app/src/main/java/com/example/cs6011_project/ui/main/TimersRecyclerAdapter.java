@@ -3,6 +3,7 @@ package com.example.cs6011_project.ui.main;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,10 +62,25 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timers.remove(position);
-                FileHelper.deleteOneTimer(context, timers);
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Caution!!")
+                        .setMessage("This action cannot be reverse.\nAre you sire you want to delete this timer?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteTimerEvent(position);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .show();
             }
         });
+    }
+
+    private void deleteTimerEvent(int position) {
+        timers.remove(position);
+        FileHelper.deleteOneTimer(context, timers);
     }
 
     @Override
@@ -94,6 +110,5 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
             btn_delete = view.findViewById(R.id.btn_timer_delete);
         }
     }
-
 
 }

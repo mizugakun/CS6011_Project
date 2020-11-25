@@ -23,7 +23,6 @@ public abstract class AbsTimer {
         timer = new Timer();
         countdown = new TimerTask() {
             public void run() {
-                getLog();
                 if (timeRemaining > 0) {
                     timeRemaining--;
                     updateTime(timeRemaining);
@@ -61,6 +60,7 @@ public abstract class AbsTimer {
     public String getTimerName() { return timerName; }
     public String getType() { return type; }
     public int getTimeRemaining(){ return timeRemaining; }
+    public String getAdvice() { return advice; }
 
     public int getDays() { return days; }
     public int getHours() { return hours; }

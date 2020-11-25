@@ -1,10 +1,13 @@
 package com.example.cs6011_project.ui.main;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,12 +38,25 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AbsTimer timer = timers.get(position);
+        final String advice = timer.getAdvice();
         holder.name.setText(timer.getTimerName());
         holder.type.setText(timer.getType());
         holder.day.setText(String.format("%03d", timer.getDays()));
         holder.hour.setText(String.format("%02d", timer.getHours()));
         holder.minute.setText(String.format("%02d", timer.getMinutes()));
         holder.second.setText(String.format("%02d", timer.getSeconds()));
+        holder.btn_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("LOG_TAG", "ccc");
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Timer's information")
+                        .setMessage(advice)
+                        .setPositiveButton(R.string.got_it, null)
+                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -55,6 +71,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         TextView hour;
         TextView minute;
         TextView second;
+        Button btn_info;
 
         public ViewHolder(View view) {
             super(view);
@@ -64,6 +81,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
             hour = view.findViewById(R.id.timer_hour);
             minute = view.findViewById(R.id.timer_minute);
             second = view.findViewById(R.id.timer_second);
+            btn_info = view.findViewById(R.id.btn_timer_info);
         }
     }
 

@@ -1,7 +1,14 @@
 package utilities;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.provider.Settings;
 import android.util.Log;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainer;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
@@ -20,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,6 +152,30 @@ public class FileHelper {
         String jsonString = gson.toJson(jsonArray);
         saveData(context, jsonString);
     }
+
+    public static void deleteOneTimer(Context context, List<AbsTimer> newTimers) {
+        List<TimerData> data = new ArrayList<>();
+        for (AbsTimer timer : newTimers) {
+            AbsTimerMappingTimeData(context, timer, data);
+        }
+        String jsonString = parseTimerDataToJson(data);
+        saveData(context, jsonString);
+    }
+
+    public static void AbsTimerMappingTimeData(Context context, AbsTimer timer, List<TimerData> list) {
+        String name = timer.getTimerName();
+        String type = timer.getType();
+        int duration = getDurationHelper(context, name, type);
+        LocalDateTime start_date = TimerHelper.getStartDate(duration);
+
+        list.add(new TimerData(name, type, duration, start_date.toString()));
+    }
+
+    public static String parseTimerDataToJson (List<TimerData> data) {
+        Gson gson = new Gson();
+        return gson.toJson(data);
+    }
+
     public static void saveData(Context context, String jsonString) {
         try {
             BufferedWriter fos = new BufferedWriter(new FileWriter(context.getFilesDir().getAbsolutePath() + "/" + context.getString(R.string.TimersJSON)));

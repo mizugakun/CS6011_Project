@@ -27,10 +27,17 @@ public class TimerHelper {
         return getTotalSeconds(p.getDays(), 0, 0, (int)d.getSeconds());
     }
 
+    public static LocalDateTime getStartDate(Duration d) {
+        return LocalDateTime.now().minus(d);
+    }
+
+    public static LocalDateTime getStartDate(int seconds) {
+        Duration d = Duration.ofSeconds(seconds);
+        return getStartDate(d);
+    }
+
     public static LocalDateTime getStartDate(int days, int hours, int minutes) {
-        LocalDateTime now = LocalDateTime.now();
-        Duration d = Duration.ofSeconds(getTotalSeconds(days, hours, minutes, 0));
-        return now.minus(d);
+        return getStartDate(getTotalSeconds(days, hours, minutes, 0));
     }
 
     public static AbsTimer getInstance(String timersName, String type, int duration, LocalDateTime startDate) {

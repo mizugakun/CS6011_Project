@@ -18,6 +18,8 @@ import com.example.cs6011_project.R;
 
 import java.util.List;
 
+import utilities.FileHelper;
+
 public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAdapter.ViewHolder> {
     Context context;
     List<AbsTimer> timers;
@@ -36,7 +38,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
 
     @SuppressLint("DefaultLocale")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         AbsTimer timer = timers.get(position);
         final String advice = timer.getAdvice();
         holder.name.setText(timer.getTimerName());
@@ -48,13 +50,19 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         holder.btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("LOG_TAG", "ccc");
                 new AlertDialog.Builder(v.getContext())
                         .setTitle("Timer's information")
                         .setMessage(advice)
                         .setPositiveButton(R.string.got_it, null)
                         .setIcon(R.drawable.ic_launcher_foreground)
                         .show();
+            }
+        });
+        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timers.remove(position);
+                FileHelper.deleteOneTimer(context, timers);
             }
         });
     }
@@ -72,6 +80,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         TextView minute;
         TextView second;
         Button btn_info;
+        Button btn_delete;
 
         public ViewHolder(View view) {
             super(view);
@@ -82,6 +91,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
             minute = view.findViewById(R.id.timer_minute);
             second = view.findViewById(R.id.timer_second);
             btn_info = view.findViewById(R.id.btn_timer_info);
+            btn_delete = view.findViewById(R.id.btn_timer_delete);
         }
     }
 

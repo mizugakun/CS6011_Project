@@ -40,7 +40,6 @@ public class TimerListFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
-
         return view;
     }
 

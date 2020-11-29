@@ -55,7 +55,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
                         .setTitle("Timer's information")
                         .setMessage(getTimerInformation(timer))
                         .setPositiveButton(R.string.got_it, null)
-                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .setIcon(R.drawable.ic_information_foreground)
                         .show();
             }
         });
@@ -64,7 +64,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
                         .setTitle("Caution!!")
-                        .setMessage("This action cannot be reverse.\nAre you sire you want to delete this timer?")
+                        .setMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -72,7 +72,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
                             }
                         })
                         .setNegativeButton("No", null)
-                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .setIcon(R.drawable.ic_caution_foreground)
                         .show();
             }
         });

@@ -138,7 +138,7 @@ public class CreateTimerFragment extends Fragment {
                         .setTitle("WRONG FORMAT")
                         .setMessage("Please enter valid number")
                         .setPositiveButton(R.string.got_it, null)
-                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .setIcon(R.drawable.ic_caution_foreground)
                         .show();
         }
     }

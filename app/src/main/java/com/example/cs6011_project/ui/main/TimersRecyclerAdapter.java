@@ -40,7 +40,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        AbsTimer timer = timers.get(position);
+        final AbsTimer timer = timers.get(position);
         final String advice = timer.getAdvice();
         holder.name.setText(timer.getTimerName());
         holder.type.setText(timer.getType());
@@ -53,7 +53,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
             public void onClick(View v) {
                 new AlertDialog.Builder(v.getContext())
                         .setTitle("Timer's information")
-                        .setMessage(advice)
+                        .setMessage(getTimerInformation(timer))
                         .setPositiveButton(R.string.got_it, null)
                         .setIcon(R.drawable.ic_launcher_foreground)
                         .show();
@@ -76,6 +76,13 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
                         .show();
             }
         });
+    }
+
+    private String getTimerInformation(AbsTimer timer) {
+        String message = "Timer Type: " + timer.getTimerName() + "\n"
+                        + "Surface Type: " + timer.getType() + "\n\n"
+                        + timer.getAdvice();
+        return message;
     }
 
     private void deleteTimerEvent(int position) {

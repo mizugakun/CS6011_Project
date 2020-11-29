@@ -6,10 +6,10 @@ public class FluTimer extends AbsTimer {
 
 	//duration reference: https://pubmed.ncbi.nlm.nih.gov/6282993/
 	String specificAdvice = "Avoid touching your eyes, nose, mouth, \n"
-			+ "	or any object you may place on these places.\n"
-			+ " Wash your hands with soap for at least 20 seconds.\n"
-			+ " dry hands and operate faucet with disposable paper towel\n"
-			+ " if available. Be conscious of other surfaces touched.";
+			+ "or any object you may place on these places.\n"
+			+ "Wash your hands with soap for at least 20 seconds.\n"
+			+ "dry hands and operate faucet with disposable paper towel\n"
+			+ "if available. Be conscious of other surfaces touched.";
 	
 	public FluTimer(String timerName, String type, int duration, LocalDateTime startDate) {
 		super(timerName, type, duration, startDate);

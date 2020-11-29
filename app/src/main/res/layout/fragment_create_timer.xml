@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground2"
     android:padding="32dp">
+
+    <TextView
+        android:id="@+id/label_title_createTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/create_a_timer"
+        android:textAlignment="center"
+        android:textColor="@color/colorText2"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/label_timer_name"
@@ -11,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:text="@string/timer_name"
+        android:textColor="@color/colorText1"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/timers_name_spinner"
         app:layout_constraintEnd_toStartOf="@+id/timers_name_spinner"
@@ -20,16 +38,19 @@
         android:id="@+id/timers_name_spinner"
         android:layout_width="398dp"
         android:layout_height="48dp"
-        android:layout_marginTop="128dp"
+        android:background="@color/colorBackground1"
+        android:layout_marginTop="64dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/label_title_createTimer" />
 
     <TextView
         android:id="@+id/label_timer_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="@string/timer_type"
+        android:layout_marginEnd="24dp"
+        android:text="@string/surface_type"
+        android:textColor="@color/colorText1"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/timers_type_spinner"
         app:layout_constraintEnd_toStartOf="@+id/timers_type_spinner"
@@ -41,7 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
-        android:text="Offset"
+        android:text="@string/offset"
+        android:textColor="@color/colorText1"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/editText_timers_offset_day"
         app:layout_constraintEnd_toStartOf="@+id/editText_timers_offset_day"
@@ -51,27 +73,34 @@
         android:id="@+id/timers_type_spinner"
         android:layout_width="398dp"
         android:layout_height="48dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="90dp"
+        android:background="@color/colorBackground1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timers_name_spinner" />
 
 
     <Button
         android:id="@+id/btn_Withdraw_Adding_Timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:text="@string/withdraw"
+        android:textSize="18sp"
+        android:background="@color/colorButton2"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_Confirm_Adding_Timer"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/btn_Confirm_Adding_Timer"
-        android:layout_width="95dp"
-        android:layout_height="47dp"
-        android:text="@string/add"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/create"
+        android:textSize="18sp"
+        android:background="@color/colorButton1"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="@+id/btn_Withdraw_Adding_Timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -81,8 +110,9 @@
         android:id="@+id/spinner_timer_offset_minutes"
         android:layout_width="96dp"
         android:layout_height="50dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="90dp"
         android:layout_marginEnd="32dp"
+        android:background="@color/colorBackground1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timers_type_spinner" />
 
@@ -91,6 +121,7 @@
         android:layout_width="96dp"
         android:layout_height="50dp"
         android:autofillHints="hours"
+        android:background="@color/colorBackground1"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_timer_offset_minutes"
         app:layout_constraintEnd_toStartOf="@+id/spinner_timer_offset_minutes"
         app:layout_constraintHorizontal_bias="0.5"
@@ -104,7 +135,8 @@
         android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="days"
+        android:hint="@string/days"
+        android:background="@color/colorBackground1"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_timer_offset_hours"
         app:layout_constraintEnd_toStartOf="@+id/spinner_timer_offset_hours"
@@ -117,7 +149,7 @@
         android:id="@+id/label_hr"
         android:layout_width="24dp"
         android:layout_height="wrap_content"
-        android:text="hr"
+        android:text="@string/hr"
         android:textSize="16sp"
         android:textAlignment="center"
         android:textStyle="italic"
@@ -129,11 +161,12 @@
         android:id="@+id/label_min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="min"
+        android:text="@string/min"
         android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/spinner_timer_offset_minutes"
         app:layout_constraintEnd_toEndOf="@+id/spinner_timer_offset_minutes"
         app:layout_constraintStart_toStartOf="@+id/spinner_timer_offset_minutes" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

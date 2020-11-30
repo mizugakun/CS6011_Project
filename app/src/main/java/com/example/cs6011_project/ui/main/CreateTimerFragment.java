@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.cs6011_project.R;
+import com.example.cs6011_project.ui.dialog.customTimerDialog;
 
 import java.time.LocalDateTime;
 
@@ -133,13 +134,18 @@ public class CreateTimerFragment extends Fragment {
             closeKeyBoard(view);
             NavHostFragment.findNavController(CreateTimerFragment.this).popBackStack();
         } else {
-            // show alert
-                new AlertDialog.Builder(view.getContext())
-                        .setTitle("WRONG FORMAT")
-                        .setMessage("Please enter valid number")
-                        .setPositiveButton(R.string.got_it, null)
-                        .setIcon(R.drawable.ic_caution_foreground)
-                        .show();
+            customTimerDialog d = new customTimerDialog(view.getContext());
+            d.show();
+            d.setDialogIcon(R.drawable.ic_caution_foreground);
+            d.setDialogTitle("WRONG FORMAT!!");
+            d.setDialogMessage("Please enter valid number in days.");
+            d.positiveButton.setText("Confirm");
+//                new AlertDialog.Builder(view.getContext())
+//                        .setTitle("WRONG FORMAT")
+//                        .setMessage("Please enter valid number")
+//                        .setPositiveButton(R.string.got_it, null)
+//                        .setIcon(R.drawable.ic_caution_foreground)
+//                        .show();
         }
     }
 

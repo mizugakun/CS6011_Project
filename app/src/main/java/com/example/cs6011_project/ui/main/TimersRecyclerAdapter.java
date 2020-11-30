@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
+import com.example.cs6011_project.ui.dialog.customTimerDialog;
+import com.example.cs6011_project.ui.dialog.customTimerDialog_yes_and_no;
 
 import java.util.List;
 
@@ -51,29 +52,42 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         holder.btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Timer's information")
-                        .setMessage(getTimerInformation(timer))
-                        .setPositiveButton(R.string.got_it, null)
-                        .setIcon(R.drawable.ic_information_foreground)
-                        .show();
+                customTimerDialog d = new customTimerDialog(v.getContext());
+                d.show();
+                d.setDialogIcon(R.drawable.ic_information_foreground);
+                d.setDialogTitle("Timer's Information");
+                d.setDialogMessage(getTimerInformation(timer));
+                d.positiveButton.setText("Confirm");
             }
         });
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Caution!!")
-                        .setMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteTimerEvent(position);
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .setIcon(R.drawable.ic_caution_foreground)
-                        .show();
+                final customTimerDialog_yes_and_no d = new customTimerDialog_yes_and_no(v.getContext());
+                d.show();
+                d.setDialogIcon(R.drawable.ic_caution_foreground);
+                d.setDialogTitle("Caution!");
+                d.setDialogMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?");
+                d.positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteTimerEvent(position);
+                        d.dismiss();
+                    }
+                });
+
+//                new AlertDialog.Builder(v.getContext())
+//                        .setTitle("Caution!!")
+//                        .setMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                deleteTimerEvent(position);
+//                            }
+//                        })
+//                        .setNegativeButton("No", null)
+//                        .setIcon(R.drawable.ic_caution_foreground)
+//                        .show();
             }
         });
     }

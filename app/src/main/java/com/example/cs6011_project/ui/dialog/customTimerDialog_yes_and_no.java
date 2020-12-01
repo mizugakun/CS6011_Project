@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.example.cs6011_project.R;
 
-
+// a class for customized dialog (with confirm and cancel buttons)
 public class customTimerDialog_yes_and_no extends customTimerDialog {
 
     public Button negativeButton;

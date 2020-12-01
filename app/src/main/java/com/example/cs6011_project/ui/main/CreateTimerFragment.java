@@ -119,9 +119,10 @@ public class CreateTimerFragment extends Fragment {
         createSpinner(offset_min, 60, false);
     }
 
+    //create a timer
     private void createTimerEvent(View view) {
         if (isInputCorrect()) {
-            //create timer
+            // find four major parameters of a timer
             String name = timerName.getSelectedItem().toString();
             String type = timerType.getSelectedItem().toString();
             LocalDateTime startDate = TimerHelper.getStartDate(Integer.parseInt(offset_day.getText().toString()),
@@ -129,6 +130,7 @@ public class CreateTimerFragment extends Fragment {
                                                 Integer.parseInt(offset_min.getSelectedItem().toString()));
             int duration = FileHelper.getDurationHelper(getContext(), name, type);
 
+            // write timer's data into the local storage
             FileHelper.addOneTimer(getContext(), new TimerData(name, type, duration, startDate.toString()));
 
             closeKeyBoard(view);
@@ -140,12 +142,6 @@ public class CreateTimerFragment extends Fragment {
             d.setDialogTitle("WRONG FORMAT!!");
             d.setDialogMessage("Please enter valid number in days.");
             d.positiveButton.setText("Confirm");
-//                new AlertDialog.Builder(view.getContext())
-//                        .setTitle("WRONG FORMAT")
-//                        .setMessage("Please enter valid number")
-//                        .setPositiveButton(R.string.got_it, null)
-//                        .setIcon(R.drawable.ic_caution_foreground)
-//                        .show();
         }
     }
 

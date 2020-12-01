@@ -1,5 +1,6 @@
 package data;
 
+// data structure for storing the information of existing timer
 public class TimerData {
     public String name;
     public String type;

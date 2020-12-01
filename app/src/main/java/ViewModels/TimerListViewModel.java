@@ -13,6 +13,7 @@ import java.util.List;
 import Repositories.TimerListRepository;
 import data.TimerData;
 
+// a class that responsible for communicate with repository class and activity class
 public class TimerListViewModel extends ViewModel {
     private TimerListRepository repo;
     public MutableLiveData<List<AbsTimer>> timers;

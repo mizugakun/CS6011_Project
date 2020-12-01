@@ -30,9 +30,14 @@ public class TimerListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timer_list, container, false);
+
+        // find the recycler view that need an adapter
         recyclerView = view.findViewById(R.id.timers_list_view);
 
+        // get view model of timers (local storage <--> repository <--> view model)
         timerListViewModel = new TimerListViewModel(getActivity().getApplication());
+
+        // setting the observer and the adapter for monitoring the data and changing the value on the screen
         timerListViewModel.timers.observe(getViewLifecycleOwner(), new Observer<List<AbsTimer>>() {
             @Override
             public void onChanged(List<AbsTimer> timerData) {

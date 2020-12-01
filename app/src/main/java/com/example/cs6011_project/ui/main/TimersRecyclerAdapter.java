@@ -30,6 +30,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         this.timers = timers;
     }
 
+    // in the adapter, the view holder will store the UI components as the parameters
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,11 +39,11 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
         return new ViewHolder(view);
     }
 
+    // binding the data in the array to the view holder's parameters
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final AbsTimer timer = timers.get(position);
-        final String advice = timer.getAdvice();
         holder.name.setText(timer.getTimerName());
         holder.type.setText(timer.getType());
         holder.day.setText(String.format("%03d", timer.getDays()));
@@ -75,19 +76,6 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
                         d.dismiss();
                     }
                 });
-
-//                new AlertDialog.Builder(v.getContext())
-//                        .setTitle("Caution!!")
-//                        .setMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                deleteTimerEvent(position);
-//                            }
-//                        })
-//                        .setNegativeButton("No", null)
-//                        .setIcon(R.drawable.ic_caution_foreground)
-//                        .show();
             }
         });
     }

@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.example.cs6011_project.R;
 
-
+// a class for customized dialog (with only one button)
 public class customTimerDialog extends Dialog {
     public Button positiveButton;
 

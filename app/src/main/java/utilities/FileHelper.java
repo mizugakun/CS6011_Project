@@ -27,13 +27,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import data.TimerData;
 
+// This class is for parsing, writing, and reading the timers' data to the local storage or repository
 public class FileHelper {
 
     public static List<AbsTimer> getAbsTimersFromStorage(Context context, String filename) {
@@ -44,6 +44,7 @@ public class FileHelper {
         return new ArrayList<>();
     }
 
+    // read file from assets file or local storage
     public static String getTextFromSource(Context context, String filename) {
         File file = new File(context.getFilesDir().getAbsolutePath() + "/" + filename);
         if (file.exists()) {
@@ -52,6 +53,7 @@ public class FileHelper {
         return getStringFromAssets(context, filename);
     }
 
+    // read file from local storage and return the string
     private static String getStringFromCache(Context context, String filename) {
         String res = null;
         try {
@@ -74,6 +76,8 @@ public class FileHelper {
 
         return res;
     }
+
+    // read file from assets file and return the string
     private static String getStringFromAssets(Context context, String filename) {
         String res = null;
         try {
@@ -92,6 +96,7 @@ public class FileHelper {
         return res;
     }
 
+    // parse the json string into List<AbsTimer>
     public static List<AbsTimer> ParseHelper(Context context, String jsonString) {
         List<AbsTimer> res = new ArrayList<>();
 
@@ -109,6 +114,7 @@ public class FileHelper {
         return res;
     }
 
+    // mapping the json element to the AbsTimer class, and add the timer into a list
     private static void jsonMappingAbsTimers(JsonElement jsonElement, List<AbsTimer> list, Context context) {
         JsonObject obj = jsonElement.getAsJsonObject();
         AbsTimer timer;
@@ -125,6 +131,7 @@ public class FileHelper {
         }
     }
 
+    // read the Duration.json file based on timer's type and surface's type
     public static int getDurationHelper (Context context, String timerName, String timerType) {
         String jsonString = getTextFromSource(context, "Duration.json");
 
@@ -134,6 +141,7 @@ public class FileHelper {
         return obj.get(timerName).getAsJsonObject().get(timerType).getAsInt();
     }
 
+    // write a timer into local storage
     public static void addOneTimer(Context context, TimerData data) {
         // get all timers in the storage and parse those into jsonArray
         String allTimersJSON = getTextFromSource(context, context.getString(R.string.TimersJSON));
@@ -153,15 +161,17 @@ public class FileHelper {
         saveData(context, jsonString);
     }
 
+    // parse a list of timers into json string and save the data
     public static void deleteOneTimer(Context context, List<AbsTimer> newTimers) {
         List<TimerData> data = new ArrayList<>();
         for (AbsTimer timer : newTimers) {
             AbsTimerMappingTimeData(context, timer, data);
         }
-        String jsonString = parseTimerDataToJson(data);
+        String jsonString = new Gson().toJson(data);
         saveData(context, jsonString);
     }
 
+    // mapping the timer's parameters into TimerData class so that it can be store into local storage
     public static void AbsTimerMappingTimeData(Context context, AbsTimer timer, List<TimerData> list) {
         String name = timer.getTimerName();
         String type = timer.getType();
@@ -169,11 +179,6 @@ public class FileHelper {
         LocalDateTime start_date = TimerHelper.getStartDate(duration);
 
         list.add(new TimerData(name, type, duration, start_date.toString()));
-    }
-
-    public static String parseTimerDataToJson (List<TimerData> data) {
-        Gson gson = new Gson();
-        return gson.toJson(data);
     }
 
     public static void saveData(Context context, String jsonString) {

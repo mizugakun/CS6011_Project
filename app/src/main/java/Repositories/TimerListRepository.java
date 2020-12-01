@@ -17,6 +17,8 @@ import java.util.TimerTask;
 import utilities.FileHelper;
 import utilities.TimerHelper;
 
+// This class will be called by view model.
+// then will call the file helper class to parse the data in local storage into List<AbsTimer>
 public class TimerListRepository {
     private Application app;
     public MutableLiveData<List<AbsTimer>> timers;
@@ -39,12 +41,16 @@ public class TimerListRepository {
         updateValue();
     }
 
+    // The observer at activity cannot monitor the remaining time in the live data even it is changing.
+    // This method will update the live data with the same value and trigger the observer.
     private void updateValue() {
         refresher = new Timer();
+
         TimerTask refreshUI = new TimerTask() {
             @Override
             public void run() {
-                timers.postValue(timers.getValue());
+                List<AbsTimer> value = timers.getValue();
+                timers.postValue(value);
             }
         };
         refresher.scheduleAtFixedRate(refreshUI, 0, 1000);

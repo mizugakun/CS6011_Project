@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
 
+// calculate and create anything related to the timer
 public class TimerHelper {
     public static int getTotalSeconds(int days, int hours, int minutes, int second) {
         int finaloffset = 0;

@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import utilities.TimerHelper;
 
+// basic class for the timer that the project will use
 public abstract class AbsTimer {
     private int timeRemaining;
     protected String timerName, type, advice;

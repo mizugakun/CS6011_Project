@@ -49,7 +49,7 @@ public class TimerListFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
-
+        setRefreshUI();
         return view;
     }
 

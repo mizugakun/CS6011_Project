@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="@string/timer_name"
+        android:text="@string/timer_type"
         android:textAlignment="center"
         android:textColor="@color/colorText2"
         android:textSize="24sp"

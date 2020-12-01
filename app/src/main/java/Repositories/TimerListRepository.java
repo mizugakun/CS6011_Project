@@ -38,21 +38,21 @@ public class TimerListRepository {
         TimerHelper.StartCounting(data);
 
         timers.setValue(data);
-        updateValue();
+//        updateValue();
     }
 
     // The observer at activity cannot monitor the remaining time in the live data even it is changing.
     // This method will update the live data with the same value and trigger the observer.
-    private void updateValue() {
-        refresher = new Timer();
-
-        TimerTask refreshUI = new TimerTask() {
-            @Override
-            public void run() {
-                List<AbsTimer> value = timers.getValue();
-                timers.postValue(value);
-            }
-        };
-        refresher.scheduleAtFixedRate(refreshUI, 0, 1000);
-    }
+//    private void updateValue() {
+//        refresher = new Timer();
+//
+//        TimerTask refreshUI = new TimerTask() {
+//            @Override
+//            public void run() {
+//                List<AbsTimer> value = timers.getValue();
+//                timers.postValue(value);
+//            }
+//        };
+//        refresher.scheduleAtFixedRate(refreshUI, 0, 1000);
+//    }
 }

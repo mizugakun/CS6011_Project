@@ -1,6 +1,7 @@
 package com.example.cs6011_project.ui.main;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import com.example.cs6011_project.AbsTimer;
 import com.example.cs6011_project.R;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ViewModels.TimerListViewModel;
 import data.TimerData;
@@ -26,6 +29,7 @@ import utilities.FileHelper;
 public class TimerListFragment extends Fragment {
     TimerListViewModel timerListViewModel;
     RecyclerView recyclerView;
+    Timer refreshUI;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class TimerListFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
+
         return view;
     }
 
@@ -60,5 +65,32 @@ public class TimerListFragment extends Fragment {
             }
         });
     }
+
+
+    // The observer at view model cannot monitor the remaining time in the live data even it is changing.
+    // Instead of inform the observer to set the adapter, this method will notify the adapter that the data has been change per second.
+    private void setRefreshUI() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Activity activity = getActivity();
+                assert activity != null;
+
+                // Only the original thread that created a view hierarchy can touch its views
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+                        assert adapter != null;
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
+        refreshUI = new Timer();
+        refreshUI.schedule(task, 0, 1000);
+    }
+
+
 
 }

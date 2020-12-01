@@ -67,7 +67,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
                 d.show();
                 d.setDialogIcon(R.drawable.ic_caution_foreground);
                 d.setDialogTitle("Caution!");
-                d.setDialogMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?");
+                d.setDialogMessage("The object may still be unsafe to touch! \nThis action cannot be reversed.\nAre you sure you want to delete this timer?");
                 d.positiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -78,7 +78,7 @@ public class TimersRecyclerAdapter extends RecyclerView.Adapter<TimersRecyclerAd
 
 //                new AlertDialog.Builder(v.getContext())
 //                        .setTitle("Caution!!")
-//                        .setMessage("This action cannot be reverse.\nAre you sure you want to delete this timer?")
+//                        .setMessage("The object may still be unsafe to touch! \nThis action cannot be reversed.\nAre you sure you want to delete this timer?")
 //                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 //                            @Override
 //                            public void onClick(DialogInterface dialog, int which) {

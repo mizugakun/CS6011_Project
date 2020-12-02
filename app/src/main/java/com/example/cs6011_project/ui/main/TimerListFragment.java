@@ -23,16 +23,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ViewModels.TimerListViewModel;
-import data.TimerData;
-import utilities.FileHelper;
 
+// a fragment class for timer list UI
 public class TimerListFragment extends Fragment {
     TimerListViewModel timerListViewModel;
     RecyclerView recyclerView;
     Timer refreshUI;
+
+    // This method will be called when the UI is created
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timer_list, container, false);
 
         // find the recycler view that need an adapter
@@ -49,14 +51,18 @@ public class TimerListFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
+
+        // set the function for refresh the UI
         setRefreshUI();
         return view;
     }
 
+    // This method will be called when the UI has been created
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // catch the "Add Timer" Button and set the event for navigate to the create timer UI
         view.findViewById(R.id.btn_Add_New_Timer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,8 +74,9 @@ public class TimerListFragment extends Fragment {
 
 
     // The observer at view model cannot monitor the remaining time in the live data even it is changing.
-    // Instead of inform the observer to set the adapter, this method will notify the adapter that the data has been change per second.
+    // Instead of informing the observer to set the adapter, this method will notify the adapter that the data has been change per second.
     private void setRefreshUI() {
+        // the task for the timer is notifying the adapter that every data in it has been updated
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -88,6 +95,7 @@ public class TimerListFragment extends Fragment {
             }
         };
         refreshUI = new Timer();
+        // schedule the task with timer and make it execute the task every second
         refreshUI.schedule(task, 0, 1000);
     }
 

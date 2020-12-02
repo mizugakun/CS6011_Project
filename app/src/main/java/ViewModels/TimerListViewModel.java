@@ -18,9 +18,11 @@ public class TimerListViewModel extends ViewModel {
     private TimerListRepository repo;
     public MutableLiveData<List<AbsTimer>> timers;
 
-
     public TimerListViewModel(@NonNull Application application) {
+        // create the repository class
         repo = new TimerListRepository(application);
+
+        // pass the value in the repository to the view model
         timers = repo.timers;
     }
 }

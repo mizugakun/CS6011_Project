@@ -19,11 +19,18 @@ public abstract class AbsTimer {
     public AbsTimer(String timerName, String type, int duration, LocalDateTime startDate) {
         this.timerName = timerName;
         this.type = type;
+
+        // calculate the remaining seconds
         timeRemaining = duration - TimerHelper.getOffset(startDate);
 
+        // create the instance of timer
         timer = new Timer();
+
+        // determine the task for counting down.
         countdown = new TimerTask() {
             public void run() {
+                // if remaining seconds > 0, update the properties of this class; otherwise close
+                // the timer.
                 if (timeRemaining > 0) {
                     timeRemaining--;
                     updateTime(timeRemaining);
@@ -41,6 +48,8 @@ public abstract class AbsTimer {
     public void start() {
         timer.scheduleAtFixedRate(countdown, 0, 1000);
     }
+
+    // update days, hours, minutes, seconds in this class
     public void updateTime(int totalsec) {
     	int remainder;
     	days = totalsec / 86400;
@@ -51,13 +60,13 @@ public abstract class AbsTimer {
     	remainder = remainder % 60;
     	seconds = remainder;
     }
+
+    // set the specific advice for this timer class
     public void setAdvice(String newAdvice) {
     	advice = newAdvice;
     }
-    public void getLog() {
-        Log.i("Timer Data", String.format("%d days %d:%d:%d", days, hours, minutes, seconds));
-    }
 
+    // get certain properties in this class
     public String getTimerName() { return timerName; }
     public String getType() { return type; }
     public int getTimeRemaining(){ return timeRemaining; }

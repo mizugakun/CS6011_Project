@@ -2,6 +2,7 @@ package com.example.cs6011_project;
 
 import java.time.LocalDateTime;
 
+// a subclass for influenza timer
 public class FluTimer extends AbsTimer {
 
 	//duration reference: https://pubmed.ncbi.nlm.nih.gov/6282993/
